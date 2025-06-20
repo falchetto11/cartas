@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Carta para Joana</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #2c003e, #0f0c29);
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .iloveyou {
+      font-family: 'Great Vibes', cursive;
+      font-size: 48px;
+      margin-bottom: 40px;
+      color: #fff;
+      text-shadow: 0 0 10px #ff85b3, 0 0 20px #ff85b3, 0 0 30px #ff85b3;
+    }
+
+    .heart {
+      width: 100px;
+      height: 100px;
+      background-color: #d50000;
+      position: relative;
+      transform: rotate(-45deg);
+      animation: pulse 1.2s infinite;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      width: 100px;
+      height: 100px;
+      background-color: #d50000;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .heart::before {
+      top: -50px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: 50px;
+      top: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1) rotate(-45deg); }
+      50% { transform: scale(1.2) rotate(-45deg); }
+      100% { transform: scale(1) rotate(-45deg); }
+    }
+
+    #mensagemFinal {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      max-width: 90%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px;
+      border-radius: 30px;
+      font-size: 20px;
+      line-height: 1.8;
+      box-shadow: 0 0 30px rgba(255, 192, 203, 0.8);
+      color: #880e4f;
+      animation: fancyFade 1.5s ease-out forwards;
+      opacity: 0;
+      z-index: 3;
+    }
+
+    #btnReset {
+      display: none;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff4081;
+      color: white;
+      cursor: pointer;
+    }
+
+    @keyframes fancyFade {
+      0% {
+        transform: translate(-50%, -60%) scale(0.8);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+
+    .falling-heart {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: pink;
+      transform: rotate(-45deg);
+      animation: fallDown 6s linear forwards;
+      z-index: 0;
+    }
+
+    .falling-heart::before,
+    .falling-heart::after {
+      content: "";
+      width: 30px;
+      height: 30px;
+      background-color: pink;
+      border-radius: 50%;
+      position: absolute;
+    }
+
+    .falling-heart::before {
+      top: -15px;
+      left: 0;
+    }
+
+    .falling-heart::after {
+      left: 15px;
+      top: 0;
+    }
+
+    @keyframes fallDown {
+      0% { top: -50px; opacity: 0; transform: rotate(-45deg) scale(0.8); }
+      50% { opacity: 1; }
+      100% { top: 100vh; opacity: 0; transform: rotate(-45deg) scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="inicial">
+    <div class="iloveyou">Clique no coração</div>
+    <div class="heart" onclick="mostrarMensagem()"></div>
+  </div>
+
+  <div id="mensagemFinal">
+    <p>gls viadin</p>
+    <button id="btnReset" onclick="resetMensagem()">Voltar</button>
+  </div>
+
+  <script>
+    function mostrarMensagem() {
+      document.getElementById('mensagemFinal').style.display = 'block';
+      document.getElementById('btnReset').style.display = 'inline-block';
+      document.getElementById('inicial').style.display = 'none';
+    }
+
+    function resetMensagem() {
+      document.getElementById('mensagemFinal').style.display = 'none';
+      document.getElementById('btnReset').style.display = 'none';
+      document.getElementById('inicial').style.display = 'block';
+    }
+
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.classList.add("falling-heart");
+      heart.style.left = Math.random() * 100 + "vw";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 300);
+  </script>
+</body>
+</html>
